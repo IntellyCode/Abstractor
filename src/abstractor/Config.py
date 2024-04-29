@@ -1,9 +1,15 @@
 """
-This class is responsible for reading the configuration file and providing the configuration to the other classes
-1. The configuration file is a json file
-2. The configuration file is read in the constructor and is passed as a file path
-3. The configuration file is read only once
-4. Program will exit if the configuration file is not found or wrong
+This class is responsible for reading the configuration file and providing the configuration to the other classes.
+
+Attributes:
+    config (dict): The configuration dictionary loaded from the configuration file.
+
+Methods:
+    __init__(self, config_path:str = "config.json"): Initializes the Config object by reading the configuration file.
+    validate(self): Validates the configuration loaded from the file.
+    get(self, key): Retrieves the value of a specific configuration key.
+    get_full(self): Retrieves the full configuration dictionary.
+
 """
 
 import json
@@ -12,11 +18,23 @@ import os
 
 class Config:
     def __init__(self, config_path:str = "config.json"):
+        """
+        Initializes the Config object by reading the configuration file.
+
+        Args:
+            config_path (str): The path to the configuration file. Defaults to "config.json".
+        """
         with open(config_path, "r") as f:
             self.config = json.load(f)
         self.validate()
 
     def validate(self):
+        """
+        Validates the configuration loaded from the file.
+
+        Raises:
+            ValueError: If any required configuration key is missing or has an invalid value.
+        """
         conf = self.config
         log_level = conf.get("log_level")
         if not log_level or log_level not in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]:
@@ -43,7 +61,24 @@ class Config:
         if not conf.get("instruction"):
             raise ValueError("instruction not found in configuration file")
         basicConfig(level=log_level)
+
     def get(self, key):
+        """
+        Retrieves the value of a specific configuration key.
+
+        Args:
+            key (str): The configuration key to retrieve.
+
+        Returns:
+            The value of the configuration key, or None if the key is not found.
+        """
         return self.config.get(key)
+
     def get_full(self):
+        """
+        Retrieves the full configuration dictionary.
+
+        Returns:
+            The full configuration dictionary.
+        """
         return self.config
