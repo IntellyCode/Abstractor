@@ -1,0 +1,11 @@
+{
+    "log_level":"INFO",
+    "openai_api_key":"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",
+    "input_dir":"./input",
+    "output_dir":"./output",
+    "display_mode":"S",
+    "pages_per_pdf":"5",
+    "start_index":"0",
+    "end_index":"1",
+    "instruction":"The following text comes after an OCR scan. Fix and complete any missing letters, wrong words but do not add your own sentences or text. Output everything as a long line of text by removing all new-line characters and adding instead only 1 whitespace in their place"
+}
