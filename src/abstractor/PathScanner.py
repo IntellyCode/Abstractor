@@ -11,24 +11,14 @@ import json
 from os import walk, path
 from re import search
 from logging import *
+import Config
 class PathScanner():
-    def __init__(self,config_path:str = "config.json"):
-        with open(config_path,"r") as f:
-            config = json.load(f)
-            basicConfig(level=config["log_level"])
-            debug("Initializing PathScanner")
-            self.scanning_dir = config["input_dir"]
-            self.display_mode = config["display_mode"]
-            self.pdf_files = []
-            try:
-                self.start_index = int(config["start_index"])
-            except:
-                self.start_index = None
-            try:
-                self.end_index = int(config["end_index"])
-            except:
-                self.end_index = None
-        
+    def __init__(self,config:Config.Config):
+        self.scanning_dir = config.get("input_dir")
+        self.display_mode = config.get("display_mode")
+        self.pdf_files = []
+        self.start_index = config.get("start_index")
+        self.end_index = config.get("end_index")        
         debug("Scanning directory: %s",self.scanning_dir)
         debug("Display mode: %s",self.display_mode)
         debug("Start index: %s",self.start_index)
@@ -61,4 +51,6 @@ class PathScanner():
                 pdf_name = self.pdf_files[i].split("/")[-1]
                 print(f"{i}: {pdf_name}\n")
                         
+    def get_pdf_files(self):
+        return self.pdf_files
             
