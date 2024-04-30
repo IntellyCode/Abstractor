@@ -17,6 +17,7 @@ from logging import basicConfig, info
 import os
 
 class Config:
+    # TODO: Remove API key from config.json before making repository public
     def __init__(self, config_path:str = "config.json"):
         """
         Initializes the Config object by reading the configuration file.
@@ -66,6 +67,8 @@ class Config:
             conf["recognition_level"] = "accurate"
         if not conf.get("language_preference"):
             conf["language_preference"] = None
+        if not conf.get('openai_model'):
+            conf['openai_model'] = 'gpt-3.5-turbo-1106'
         basicConfig(level=log_level)
 
     def get(self, key):
