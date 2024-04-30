@@ -5,7 +5,7 @@
     "input_dir":"./input",
     "output_dir":"./output",
     "display_mode":"S",
-    "pages_per_pdf":"5",
+    "pages_per_pdf":"2",
     "pdf_image_crop":{
         "threshold":"200",
         "margin":"15",

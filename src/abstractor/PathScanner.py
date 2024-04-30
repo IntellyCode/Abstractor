@@ -23,9 +23,10 @@ from os import walk, path
 from re import search
 from logging import *
 from src.abstractor.Config import Config
+from src.abstractor.UserInput import UserInput
 
 class PathScanner():
-    def __init__(self, config:Config):
+    def __init__(self, config:Config, user_input:UserInput):
         """
         Initializes the PathScanner object.
 
@@ -42,12 +43,9 @@ class PathScanner():
         self.scanning_dir = config.get("input_dir")
         self.display_mode = config.get("display_mode")
         self.pdf_files = []
-        self.start_index = config.get("start_index")
-        self.end_index = config.get("end_index")        
+        self.user_input = user_input    
         debug("Scanning directory: %s", self.scanning_dir)
         debug("Display mode: %s", self.display_mode)
-        debug("Start index: %s", self.start_index)
-        debug("End index: %s", self.end_index)
         debug("Pdf files: %s", self.pdf_files)
         info("PathScanner initialized successfully \n\n")
     
@@ -89,4 +87,12 @@ class PathScanner():
             list: The list of pdf files.
         """
         return self.pdf_files
-            
+    def get_pdf_files_range(self):
+        """
+        Selects the range of pdf files to be processed, including the start and end index.
+        """ 
+        start_index = int(self.user_input.get("start_index"))
+        end_index = int(self.user_input.get("end_index"))
+        self.pdf_files = self.pdf_files[start_index:end_index+1]
+        info("Pdf files selected \n\n")
+        return self.pdf_files

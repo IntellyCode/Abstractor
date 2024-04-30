@@ -16,7 +16,7 @@ class UserInput():
         
         self.user_input = {}
         info("UserInput initialized successfully \n\n")
-    def get_user_input(self):
+    def init(self):
         """
         Asks the user for the start and end index of the PDF files to be processed.
         Returns:
@@ -24,15 +24,14 @@ class UserInput():
         """
         info("Getting user input")
         self.user_input["start_index"] = input(self._get_input_message("start index"))
-        while not self._alidate_digit(self.user_input["start_index"]):
+        while not self._validate_digit(self.user_input["start_index"]):
             self.user_input["start_index"] = input(self._get_input_message("start index"))
 
         self.user_input["end_index"] = input(self._get_input_message("end index"))
         while not self._validate_digit(self.user_input["end_index"]):
             self.user_input["end_index"] = input(self._get_input_message("end index"))
-
-        return self.user_input
-
+        if int(self.user_input["end_index"]) < int(self.user_input["start_index"]):
+            raise ValueError("End index cannot be less than start index")
     def _validate_digit(self, digit:str):
         """
         Validates the user input.
@@ -56,3 +55,12 @@ class UserInput():
             str: The input message.
         """
         return f"Enter the {digit_name}. It should be a value greater than 0. Enter -1 to Terminate: "
+    def get(self,key:str):
+        """
+        Returns the user input.
+        Returns:
+            dict: A dictionary containing the user input.
+        """
+        if key not in self.user_input:
+            raise KeyError(f"Key {key} not found in user input")
+        return self.user_input.get(key)

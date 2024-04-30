@@ -25,7 +25,7 @@ class Config:
         Args:
             config_path (str): The path to the configuration file. Defaults to "config.json".
         """
-        info("Initializing Config")
+        print("Initializing Config")
         with open(config_path, "r") as f:
             self.config = json.load(f)
         self.validate()
@@ -37,8 +37,11 @@ class Config:
         Raises:
             ValueError: If any required configuration key is missing or has an invalid value.
         """
-        info("Validating configuration \n\n")
+        print("Validating configuration \n\n")
         conf = self.config
+        for key, value in conf.items():
+            if isinstance(value, int):
+                raise ValueError(f"Integer value found for key {key}. Only non-integer values are allowed.")
         log_level = conf.get("log_level")
         if not log_level or log_level not in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]:
             raise ValueError("log_level not found in configuration file or invalid value")
@@ -53,8 +56,8 @@ class Config:
         display_mode = conf.get("display_mode")
         if not display_mode or display_mode not in ["L", "S"]:
             raise ValueError("display_mode not found in configuration file or invalid value")
-        if not conf.get("pages_per_pdf"):
-            raise ValueError("pages_per_pdf not found in configuration file")
+        if not conf.get("pages_per_pdf") or not conf.get("pages_per_pdf").isdigit() or int(conf.get("pages_per_pdf")) < 1:
+            raise ValueError("pages_per_pdf not found in configuration file or invalid value")
         start_index = conf.get("start_index")
         if not start_index or not start_index.isdigit() or int(start_index) < 0:
             raise ValueError("start_index not found in configuration file or invalid value")
@@ -69,11 +72,11 @@ class Config:
             conf["language_preference"] = None
         if not conf.get('openai_model'):
             conf['openai_model'] = 'gpt-3.5-turbo-1106'
-        if not conf.get("pdf_image_crop") or not conf.get("pdf_image_crop").get("threshold") or not conf.get("pdf_image_crop").get("margin"):
+        if not conf.get("pdf_image_crop") or not conf.get("pdf_image_crop").get("threshold") or not conf.get("pdf_image_crop").get("margin") or not conf.get("pdf_image_crop").get("threshold").isdigit() or not conf.get("pdf_image_crop").get("margin").isdigit() or int(conf.get("pdf_image_crop").get("threshold")) < 0 or int(conf.get("pdf_image_crop").get("margin")) < 0:
             raise ValueError("pdf_image_crop not found in configuration file or missing required keys")
-        if not conf.get("pdf_image_crop").get("dpi"):
+        if not conf.get("pdf_image_crop").get("dpi") or not conf.get("pdf_image_crop").get("dpi").isdigit() or int(conf.get("pdf_image_crop").get("dpi")) < 1:
             conf["pdf_image_crop"]["dpi"] = 700
-        basicConfig(level=log_level)
+        basicConfig(level=log_level, format='%(asctime)s - %(levelname)s - %(message)s')
 
     def get(self, key):
         """
