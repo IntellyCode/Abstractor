@@ -51,6 +51,11 @@ class ConfigTests(unittest.TestCase):
         instruction = self.config.get("instruction")
         self.assertIsNotNone(instruction)
 
+    def test_get_pdf_image_crop(self):
+        pdf_image_crop = self.config.get("pdf_image_crop")
+        self.assertIsNotNone(pdf_image_crop)
+        self.assertIsNotNone(pdf_image_crop.get("threshold"))
+        self.assertIsNotNone(pdf_image_crop.get("margin"))
     def test_get_full(self):
         full_config = self.config.get_full()
         self.assertIsNotNone(full_config)

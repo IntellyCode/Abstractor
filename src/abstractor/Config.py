@@ -69,6 +69,10 @@ class Config:
             conf["language_preference"] = None
         if not conf.get('openai_model'):
             conf['openai_model'] = 'gpt-3.5-turbo-1106'
+        if not conf.get("pdf_image_crop") or not conf.get("pdf_image_crop").get("threshold") or not conf.get("pdf_image_crop").get("margin"):
+            raise ValueError("pdf_image_crop not found in configuration file or missing required keys")
+        if not conf.get("pdf_image_crop").get("dpi"):
+            conf["pdf_image_crop"]["dpi"] = 700
         basicConfig(level=log_level)
 
     def get(self, key):
