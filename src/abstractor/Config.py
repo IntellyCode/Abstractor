@@ -13,7 +13,7 @@ Methods:
 """
 
 import json
-from logging import basicConfig
+from logging import basicConfig, info
 import os
 
 class Config:
@@ -24,6 +24,7 @@ class Config:
         Args:
             config_path (str): The path to the configuration file. Defaults to "config.json".
         """
+        info("Initializing Config")
         with open(config_path, "r") as f:
             self.config = json.load(f)
         self.validate()
@@ -35,6 +36,7 @@ class Config:
         Raises:
             ValueError: If any required configuration key is missing or has an invalid value.
         """
+        info("Validating configuration \n\n")
         conf = self.config
         log_level = conf.get("log_level")
         if not log_level or log_level not in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]:
@@ -60,6 +62,10 @@ class Config:
             raise ValueError("end_index not found in configuration file or invalid value")
         if not conf.get("instruction"):
             raise ValueError("instruction not found in configuration file")
+        if not conf.get("recognition_level"):
+            conf["recognition_level"] = "accurate"
+        if not conf.get("language_preference"):
+            conf["language_preference"] = None
         basicConfig(level=log_level)
 
     def get(self, key):
