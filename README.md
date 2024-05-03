@@ -55,3 +55,13 @@ This project is licensed under the [MIT License](LICENSE).
     - margin: The margin to be left around the image
     - dpi: The dpi of the image
 - instruction: The instruction to send to ChatGPT. Example: "The following text comes after an OCR scan. Fix and complete any missing letters, wrong words but do not add your own sentences or text. Output everything as a long line of text by removing all new-line characters and adding instead only 1 whitespace in their place"
+
+
+## Potential Features
+- [] File selection should be starting from the file directories, instead of all the pdf files in 1 array
+- [] An easier way to select and avoid certain files for scanning
+- [] Modify the OpenAI API prompt, to ensure better responses
+- [] Avoid running OCR, when the PDF already has selectable text
+- [] Use a different OCR model to make the app compatible on windows
+- [] Name of output file is currently based on the parent directory of the file being red. Not always representative of the topic / date
+- [] Add a UI showing the input directory, to easily select what pdf files to scan
