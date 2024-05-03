@@ -2,3 +2,4 @@
 /output
 /src/abstractor/__pycache__
 .DS_Store
+/src/abstractor/config.json
