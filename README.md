@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is called "Abstractor" and it aims to provide a solution for abstracting text content.
+This project is called "Abstractor" and it aims to provide a solution for abstracting text content from PDF files, where text can't be selected (hence OCR)
 
 ## Features
 

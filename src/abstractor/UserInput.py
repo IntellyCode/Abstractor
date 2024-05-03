@@ -8,6 +8,7 @@ For V1.0, the UserInput class will only ask the user for the start and end index
 
 import sys
 from logging import info
+import re
 class UserInput():
     def __init__(self):
         """
@@ -62,9 +63,12 @@ class UserInput():
             return True
         pdf_numbers = remove_indices.split(",")
         for pdf_number in pdf_numbers:
-            if not pdf_number.isdigit() or int(pdf_number) < 0:
-                return False
-        return True
+            if re.match(r'^\d+-\d+$', pdf_number):
+                return True
+            if pdf_number.isdigit() and int(pdf_number) >= 0:
+                return True
+            
+        return False
     def _get_input_message(self, digit_name):
         """
         Generates the input message for the user.

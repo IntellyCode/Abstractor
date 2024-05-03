@@ -82,17 +82,18 @@ class PathScanner():
         """
         debug("Pdf files: %s", self.pdf_files)
         remove_indices = self.user_input.get("remove_indices").split(",")
-        try:
-            debug("Remove indices String: %s", remove_indices)
-            remove_indices = [int(index) for index in remove_indices]
-            debug("Remove indices: %s", remove_indices)
-            arr = []
-            for index in remove_indices:
-                arr.append(self.pdf_files[index])
-            info("Pdf files selected \n\n")
-            return arr
-        except:
-            return []
+        debug("Remove indices String: %s", remove_indices)
+        arr=[]
+        for index in remove_indices:
+            if "-" in index:
+                start, end = index.split("-")
+                for i in range(int(start), int(end)+1):
+                    arr.append(i)
+            elif index.isdigit():
+                arr.append(int(index))
+        debug("Remove indices: %s", arr)
+        return arr
+        
         
     def remove_pdfs(self,arr:list):
         """
