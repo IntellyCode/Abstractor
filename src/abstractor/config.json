@@ -1,6 +1,6 @@
 {
     "log_level":"INFO",
-    "openai_api_key":"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",
+    "openai_api_key":"YOUR-API-KEY",
     "openai_model":"gpt-3.5-turbo-1106",
     "input_dir":"./input",
     "output_dir":"./output",
