@@ -58,10 +58,10 @@ This project is licensed under the [MIT License](LICENSE).
 
 
 ## Potential Features
-- [] File selection should be starting from the file directories, instead of all the pdf files in 1 array
-- [] An easier way to select and avoid certain files for scanning
-- [] Modify the OpenAI API prompt, to ensure better responses
-- [] Avoid running OCR, when the PDF already has selectable text
-- [] Use a different OCR model to make the app compatible on windows
-- [] Name of output file is currently based on the parent directory of the file being red. Not always representative of the topic / date
-- [] Add a UI showing the input directory, to easily select what pdf files to scan
+- [ ] File selection should be starting from the file directories, instead of all the pdf files in 1 array
+- [ ] An easier way to select and avoid certain files for scanning
+- [ ] Modify the OpenAI API prompt, to ensure better responses
+- [ ] Avoid running OCR, when the PDF already has selectable text
+- [ ] Use a different OCR model to make the app compatible on windows
+- [ ] Name of output file is currently based on the parent directory of the file being red. Not always representative of the topic / date
+- [ ] Add a UI showing the input directory, to easily select what pdf files to scan
