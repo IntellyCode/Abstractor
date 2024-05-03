@@ -24,7 +24,6 @@ from re import search
 from logging import *
 from src.abstractor.Config import Config
 from src.abstractor.UserInput import UserInput
-
 class PathScanner():
     def __init__(self, config:Config, user_input:UserInput):
         """
@@ -78,7 +77,32 @@ class PathScanner():
             elif self.display_mode == "S":
                 pdf_name = self.pdf_files[i].split("/")[-1]
                 print(f"{i}: {pdf_name}\n")
-                        
+            
+    def select_pdfs_to_remove(self):
+        """
+        Removes the specified pdf files from the list based on the user input.
+        """
+        debug("Pdf files: %s", self.pdf_files)
+        remove_indices = self.user_input.get("remove_indices").split(",")
+        try:
+            debug("Remove indices String: %s", remove_indices)
+            remove_indices = [int(index) for index in remove_indices]
+            debug("Remove indices: %s", remove_indices)
+            arr = []
+            for index in remove_indices:
+                arr.append(self.pdf_files[index])
+            info("Pdf files selected \n\n")
+            return arr
+        except:
+            return []
+        
+    def remove_pdfs(self,arr:list):
+        """
+        Removes the specified pdf files from the list.
+        """
+        self.pdf_files = [x for x in self.pdf_files if x not in arr]
+        info("Pdf files removed \n\n")
+        
     def get_pdf_files(self):
         """
         Returns the list of pdf files.
@@ -87,12 +111,12 @@ class PathScanner():
             list: The list of pdf files.
         """
         return self.pdf_files
-    def get_pdf_files_range(self):
+    def select_pdf_range(self):
         """
         Selects the range of pdf files to be processed, including the start and end index.
         """ 
         start_index = int(self.user_input.get("start_index"))
         end_index = int(self.user_input.get("end_index"))
         self.pdf_files = self.pdf_files[start_index:end_index+1]
+        debug("Pdf files selected: %s", self.pdf_files)
         info("Pdf files selected \n\n")
-        return self.pdf_files

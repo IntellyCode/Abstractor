@@ -35,10 +35,19 @@ path_scanner.display_pdfs()
 # Initialize user input
 user_input.init()
 
-# Get the range of PDF files
-pdf_files = path_scanner.get_pdf_files_range()
-print(pdf_files)
+#Select the PDFs to be removes
+pdfs_to_remove = path_scanner.select_pdfs_to_remove()
+debug("PDFs to remove: " + str(pdfs_to_remove))
 
+# Get the range of PDF files
+path_scanner.select_pdf_range()
+
+# Remove some PDF files
+path_scanner.remove_pdfs(pdfs_to_remove)
+
+# Get the list of PDF files
+pdf_files = path_scanner.get_pdf_files()
+info("Final list of pdf_file: %s",pdf_files)
 # Process each PDF file
 for file in pdf_files:
     info("Processing file: " + file)

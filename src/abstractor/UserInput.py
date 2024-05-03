@@ -32,6 +32,10 @@ class UserInput():
             self.user_input["end_index"] = input(self._get_input_message("end index"))
         if int(self.user_input["end_index"]) < int(self.user_input["start_index"]):
             raise ValueError("End index cannot be less than start index")
+        
+        self.user_input["remove_indices"] = input("Enter the pdf numbers to be removed, separated by a comma: ")
+        while not self._validate_remove_indices(self.user_input["remove_indices"]):
+            self.user_input["remove_indices"] = input("Enter the pdf numbers to be removed, separated by a comma: ")
     def _validate_digit(self, digit:str):
         """
         Validates the user input.
@@ -46,6 +50,21 @@ class UserInput():
             return False
         return True
 
+    def _validate_remove_indices(self, remove_indices:str):
+        """
+        Validates the user input for removed PDFs.
+        Args:
+            remove_indices (str): The user input for removed PDFs.
+        Returns:
+            bool: True if the input is valid, False otherwise.
+        """
+        if remove_indices == "":
+            return True
+        pdf_numbers = remove_indices.split(",")
+        for pdf_number in pdf_numbers:
+            if not pdf_number.isdigit() or int(pdf_number) < 0:
+                return False
+        return True
     def _get_input_message(self, digit_name):
         """
         Generates the input message for the user.
