@@ -35,17 +35,6 @@ class ConfigTests(unittest.TestCase):
         pages_per_pdf = self.config.get("pages_per_pdf")
         self.assertIsNotNone(pages_per_pdf)
 
-    def test_get_start_index(self):
-        start_index = self.config.get("start_index")
-        self.assertIsNotNone(start_index)
-        self.assertTrue(start_index.isdigit())
-        self.assertGreaterEqual(int(start_index), 0)
-
-    def test_get_end_index(self):
-        end_index = self.config.get("end_index")
-        self.assertIsNotNone(end_index)
-        self.assertTrue(end_index.isdigit())
-        self.assertGreaterEqual(int(end_index), 0)
 
     def test_get_instruction(self):
         instruction = self.config.get("instruction")

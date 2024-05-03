@@ -36,8 +36,6 @@ class PathScanner():
             scanning_dir (str): The input directory to be scanned.
             display_mode (str): The display mode for showing the list of pdf files.
             pdf_files (list): The list of pdf files.
-            start_index (int): The index to start from.
-            end_index (int): The index to end at.
         """
         self.scanning_dir = config.get("input_dir")
         self.display_mode = config.get("display_mode")

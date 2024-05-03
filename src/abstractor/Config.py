@@ -58,12 +58,7 @@ class Config:
             raise ValueError("display_mode not found in configuration file or invalid value")
         if not conf.get("pages_per_pdf") or not conf.get("pages_per_pdf").isdigit() or int(conf.get("pages_per_pdf")) < 1:
             raise ValueError("pages_per_pdf not found in configuration file or invalid value")
-        start_index = conf.get("start_index")
-        if not start_index or not start_index.isdigit() or int(start_index) < 0:
-            raise ValueError("start_index not found in configuration file or invalid value")
-        end_index = conf.get("end_index")
-        if not end_index or not end_index.isdigit() or int(end_index) < 0:
-            raise ValueError("end_index not found in configuration file or invalid value")
+    
         if not conf.get("instruction"):
             raise ValueError("instruction not found in configuration file")
         if not conf.get("recognition_level"):
